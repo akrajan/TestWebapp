@@ -24,7 +24,6 @@ public class DigestController {
             this.original = original;
             this.sha1 = sha1;
         }
-
         public String getOriginal() { return original; }
         public String getSha1() { return sha1; }
     }
