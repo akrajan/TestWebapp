@@ -14,20 +14,21 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 @RequestMapping("/digest")
 public class DigestController {
+  private static long currentTime = System.currentTimeMillis();
 
     public class Hash {
         private final String original;
         private final String sha1;
-        
-        public Hash(String original, String sha1) { 
+
+        public Hash(String original, String sha1) {
             this.original = original;
             this.sha1 = sha1;
         }
-        
+
         public String getOriginal() { return original; }
         public String getSha1() { return sha1; }
     }
-    
+
     @RequestMapping(value="/sha1", method = RequestMethod.GET)
     public @ResponseBody Hash getSha1(@RequestParam("string") String string) {
 
@@ -38,7 +39,7 @@ public class DigestController {
             byte[] sha1Bytes = digest.digest();
             byte[] sha1Base64Bytes = Base64.encodeBase64(sha1Bytes);
             String sha1 = new String(sha1Base64Bytes);
-            return new Hash( string, sha1 );
+            return new Hash( string, Long.toString(currentTime));
         } catch (NoSuchAlgorithmException e) {
             throw new RuntimeException(e);
         } catch (UnsupportedEncodingException e) {
@@ -48,7 +49,7 @@ public class DigestController {
     }
 
 	   /*
-	    
+
 	       <bean
         class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <property name="prefix">
@@ -60,7 +61,7 @@ public class DigestController {
     </bean>
 
 
-	    
+
 	    */
-	
+
 }
