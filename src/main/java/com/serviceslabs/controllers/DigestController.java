@@ -45,7 +45,6 @@ public class DigestController {
         } catch (UnsupportedEncodingException e) {
             throw new RuntimeException(e);
         }
-
     }
 
 	   /*
